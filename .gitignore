@@ -2,3 +2,6 @@
 analysis/.snakemake/
 analysis/slurm/slurm_output/
 analysis/analysis_root/
+
+# ignore Bryce/Russell files
+code/

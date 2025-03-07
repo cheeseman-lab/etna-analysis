@@ -1,0 +1,31 @@
+
+# BrieFlow configuration file
+
+# Defining samples:
+#   Samples must be defined in the following TSV files with columns:
+#     sbs_samples.tsv: sample_fp, well, tile, cycle
+#     phenotype_samples.tsv: sample_fp, well, tile
+
+# Paths:
+#   Paths are resolved relative to the directory the workflow is run from
+
+# Parameters:
+all:
+  root_fp: analysis_root/
+preprocess:
+  phenotype_channel_order:
+  - DAPI
+  - GFP
+  - CY3
+  - CY5
+  - AF750
+  phenotype_channel_order_flip: false
+  phenotype_combo_fp: config/phenotype_combo.tsv
+  phenotype_round_order:
+  - 1
+  - 2
+  phenotype_samples_fp: config/phenotype_samples.tsv
+  sbs_channel_order: null
+  sbs_channel_order_flip: false
+  sbs_combo_fp: config/sbs_combo.tsv
+  sbs_samples_fp: config/sbs_samples.tsv
