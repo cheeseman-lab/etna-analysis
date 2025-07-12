@@ -1,0 +1,143 @@
+
+# ~BrieFlow analysis configuration file~
+
+# All paths are resolved relative to the directory the workflow is run from.
+
+# Parameters:
+all:
+  root_fp: brieflow_output/
+preprocess:
+  sbs_samples_fp: config/sbs_samples.tsv
+  sbs_combo_fp: config/sbs_combo.tsv
+  phenotype_samples_fp: config/phenotype_samples.tsv
+  phenotype_combo_fp: config/phenotype_combo.tsv
+  sbs_channel_order: null
+  phenotype_channel_order:
+  - DAPI
+  - GFP
+  - CY3
+  - CY5
+  - AF750
+  phenotype_round_order:
+  - 1
+  - 2
+  sbs_channel_order_flip: false
+  phenotype_channel_order_flip: false
+  sample_fraction: 0.1
+sbs:
+  alignment_method: DAPI
+  channel_names:
+  - DAPI
+  - G
+  - T
+  - A
+  - C
+  upsample_factor: 2
+  skip_cycles_indices: null
+  manual_background_cycle_index: null
+  extra_channel_indices:
+  - 0
+  max_filter_width: 3
+  spot_detection_method: standard
+  dapi_cycle: 1
+  cyto_cycle: 1
+  cyto_cycle_index: 0
+  dapi_index: 0
+  cyto_index: 1
+  segmentation_method: watershed
+  gpu: false
+  segment_cells: false
+  df_barcode_library_fp: config/barcode_library.tsv
+  sequencing_order: recomb_map
+  threshold_peaks: 1400
+  call_reads_method: percentile
+  bases:
+  - G
+  - T
+  - A
+  - C
+  q_min: 0
+  recomb_start: 1
+  recomb_end: 3
+  map_start: 4
+  map_end: 15
+  map_col: prefix_map
+  recomb_col: prefix_recomb
+  recomb_filter_col: Q_recomb
+  error_correct: true
+  recomb_q_thresh: 0.5
+  barcode_info_cols:
+  - gene_symbol
+  max_distance: 2
+  sort_calls: peak
+  mode: null
+  peak_width: 5
+  threshold_dapi: 4260
+  nucleus_area_min: 45
+  nucleus_area_max: 450
+  threshold_cell: 1300
+phenotype:
+  foci_channel: null
+  channel_names:
+  - DAPI
+  - Ki-67
+  - COXIV
+  - Caspase-3
+  - WGA
+  - aTubulin
+  - Vimentin
+  - gH2AX
+  - Phalloidin
+  align: true
+  dapi_index: 0
+  cyto_index: 8
+  segmentation_method: cellpose
+  reconcile: contained_in_cells
+  gpu: false
+  cp_method: cp_multichannel
+  mode: null
+  nuclei_diameter: 46.38722701997205
+  cell_diameter: 70
+  nuclei_flow_threshold: 0.4
+  nuclei_cellprob_threshold: 0.0
+  cell_flow_threshold: 1
+  cell_cellprob_threshold: 0.0
+  cyto_model: cyto3
+  target: 0
+  source: 5
+  riders:
+  - 6
+  - 7
+  - 8
+  - 9
+  remove_channel: source
+  custom_align: true
+  custom_channels:
+  - 4
+  - 8
+  custom_offset_yx:
+  - 2
+  - -3
+merge:
+  merge_combo_fp: config/merge_combo.tsv
+  sbs_metadata_cycle: 1
+  sbs_metadata_channel: null
+  ph_metadata_channel: null
+  initial_sites:
+  - - 16
+    - 9
+  - - 291
+    - 94
+  - - 392
+    - 118
+  - - 932
+    - 266
+  - - 1239
+    - 328
+  - - 1324
+    - 363
+  det_range: !!python/tuple
+  - 0.06
+  - 0.065
+  score: 0.1
+  threshold: 2
