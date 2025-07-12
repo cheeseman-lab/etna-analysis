@@ -136,7 +136,7 @@ merge:
     - 328
   - - 1324
     - 363
-  det_range: !!python/tuple
+  det_range:
   - 0.06
   - 0.065
   score: 0.1
