@@ -10,7 +10,7 @@ default-resources:
     cpus_per_task: 1
     runtime: 400
     slurm_extra: "'--output=slurm/slurm_output/rule/%j.out'"
-jobs: 300
+jobs: 500
 
 set-resources:
    # preprocessing
@@ -115,9 +115,9 @@ set-resources:
 
     # aggregate
     split_datasets:
-        mem_mb: 200000
+        mem_mb: 980000
     filter:
-        mem_mb: 100000
+        mem_mb: 500000
     generate_feature_table:
         mem_mb: 980000
         cpus_per_task: 4
@@ -141,7 +141,7 @@ set-resources:
 
     # cluster
     clean_aggregate:
-        mem_mb: 2000
+        mem_mb: 20000
     phate_leiden_clustering:
         mem_mb: 10000
     benchmark_clusters:

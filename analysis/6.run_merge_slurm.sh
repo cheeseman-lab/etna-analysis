@@ -15,7 +15,6 @@ snakemake --executor slurm --use-conda \
     --snakefile "../brieflow/workflow/Snakefile" \
     --configfile "config/config.yml" \
     --latency-wait 60 \
-    --rerun-triggers mtime \
     --keep-going \
     --until all_merge
 

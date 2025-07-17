@@ -65,7 +65,7 @@ sbs:
   recomb_col: prefix_recomb
   recomb_filter_col: Q_recomb
   error_correct: true
-  recomb_q_thresh: 0.5
+  recomb_q_thresh: 0.1
   barcode_info_cols:
   - gene_symbol
   max_distance: 2
@@ -141,3 +141,51 @@ merge:
   - 0.065
   score: 0.1
   threshold: 2
+aggregate:
+  metadata_cols_fp: config/cell_data_metadata_cols.tsv
+  collapse_cols:
+  - cell_barcode_0
+  - gene_symbol_0
+  classifier_path: config/binary_xgb_none_model.dill
+  aggregate_combo_fp: config/aggregate_combo.tsv
+  filter_queries:
+  - mapped_single_gene == True
+  - no_recomb_0 == True
+  perturbation_name_col: gene_symbol_0
+  drop_cols_threshold: 0.1
+  drop_rows_threshold: 0.01
+  impute: true
+  contamination: 0.01
+  batch_cols:
+  - plate
+  - well
+  control_key: nontargeting
+  perturbation_id_col: cell_barcode_0
+  variance_or_ncomp: 0.99
+  num_align_batches: 1
+  agg_method: median
+cluster:
+  min_cell_cutoffs:
+    Mitotic: 5
+    Interphase: 5
+    all: 5
+  leiden_resolutions:
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  phate_distance_metric: cosine
+  cluster_combo_fp: config/cluster_combo.tsv
+  uniprot_data_fp: config/benchmark_clusters/uniprot_data.tsv
+  string_pair_benchmark_fp: config/benchmark_clusters/string_pair_benchmark.tsv
+  corum_group_benchmark_fp: config/benchmark_clusters/corum_group_benchmark.tsv
+  kegg_group_benchmark_fp: config/benchmark_clusters/kegg_group_benchmark.tsv
