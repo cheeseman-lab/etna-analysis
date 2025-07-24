@@ -159,7 +159,7 @@ aggregate:
   batch_cols:
   - plate
   - well
-  control_key: nontargeting
+  control_key: nontargeting_intergenic_
   perturbation_id_col: cell_barcode_0
   variance_or_ncomp: 0.99
   num_align_batches: 1
