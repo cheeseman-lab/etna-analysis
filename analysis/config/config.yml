@@ -155,7 +155,7 @@ aggregate:
   drop_cols_threshold: 0.1
   drop_rows_threshold: 0.01
   impute: true
-  contamination: 0.01
+  contamination: 0.0
   batch_cols:
   - plate
   - well
@@ -164,11 +164,12 @@ aggregate:
   variance_or_ncomp: 0.99
   num_align_batches: 1
   agg_method: median
+  feature_normalization: median
   num_sims: 100000
-  exclusion_string: nontargeting_noncutting_
+  exclusion_string: null
   bootstrap_combinations:
-    - cell_class: "all"
-      channel_combo: "DAPI_Ki-67_COXIV_Caspase-3_WGA_aTubulin_Vimentin_gH2AX_Phalloidin"
+  - cell_class: Interphase
+    channel_combo: DAPI_Ki-67_COXIV_Caspase-3_WGA_aTubulin_Vimentin_gH2AX_Phalloidin
 cluster:
   min_cell_cutoffs:
     Mitotic: 5
