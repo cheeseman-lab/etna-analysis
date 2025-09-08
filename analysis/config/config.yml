@@ -164,12 +164,22 @@ aggregate:
   variance_or_ncomp: 0.99
   num_align_batches: 1
   agg_method: median
-  feature_normalization: median
+  feature_normalization: mad
   num_sims: 100000
   exclusion_string: null
   bootstrap_combinations:
   - cell_class: Interphase
     channel_combo: DAPI_Ki-67_COXIV_Caspase-3_WGA_aTubulin_Vimentin_gH2AX_Phalloidin
+  pseudogene_patterns:
+    nontargeting_noncutting:
+      pattern: ^nontargeting_noncutting_
+      constructs_per_pseudogene: 4
+    nontargeting_intergenic:
+      pattern: ^nontargeting_intergenic_
+      constructs_per_pseudogene: 4
+    olfactory_receptors:
+      pattern: ^OR\d+
+      constructs_per_pseudogene: 4
 cluster:
   min_cell_cutoffs:
     Mitotic: 5

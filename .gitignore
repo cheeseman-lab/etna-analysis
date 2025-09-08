@@ -2,3 +2,7 @@
 analysis/.snakemake/
 analysis/slurm/slurm_output/
 analysis/brieflow_output/
+
+# new screen specific things
+bryce_code/
+analysis/comparison/

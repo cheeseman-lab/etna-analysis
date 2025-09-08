@@ -10,7 +10,7 @@ default-resources:
     cpus_per_task: 1
     runtime: 400
     slurm_extra: "'--output=slurm/slurm_output/rule/%j.out'"
-jobs: 500
+jobs: 600
 
 set-resources:
    # preprocessing
