@@ -2,7 +2,37 @@
 analysis/.snakemake/
 analysis/slurm/slurm_output/
 analysis/brieflow_output/
+analysis/brieflow_output_new_plots/
 
-# new screen specific things
+# screen-specific generated/scratch dirs
 bryce_code/
 analysis/comparison/
+analysis/debug/
+cluster_analysis_integrated/
+
+# environment and secrets
+analysis/.env
+
+# large scratch/temp files
+archive_name.zip
+analysis/mozzarellm_run.log
+
+# macOS metadata
+.DS_Store
+
+# Claude Code session files
+.claude/
+
+# Slurm job logs (root-level)
+*.err
+*.out
+
+# Aspera transfer files
+aspera-transfer-*
+
+# BIA upload logs and generated outputs
+analysis/bia_upload/logs/
+analysis/bia_upload/*.tsv
+
+# Renamed SBS copy (1.2TB, uploaded to BIA)
+input_sbs_renamed/
