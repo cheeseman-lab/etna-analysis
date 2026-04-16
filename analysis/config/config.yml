@@ -205,3 +205,16 @@ cluster:
   string_pair_benchmark_fp: config/benchmark_clusters/string_pair_benchmark.tsv
   corum_group_benchmark_fp: config/benchmark_clusters/corum_group_benchmark.tsv
   kegg_group_benchmark_fp: config/benchmark_clusters/kegg_group_benchmark.tsv
+mozzarellm:
+  channel_combo: DAPI_aTubulin_gH2AX_Phalloidin
+  cell_class: all
+  leiden_resolution: 6
+  model: claude-sonnet-4-5-20250929
+  temperature: 0.0
+  screen_context: |
+    These clusters are from an optical pooled screen (OPS) that measured morphological 
+    phenotypes in HeLa cells. The screen involved perturbing genes using a CRISPR knockout 
+    system and imaging the resulting cellular morphology via fluorescence microscopy. 
+    This analysis uses DAPI (DNA), aTubulin (microtubules), gH2AX (DNA damage marker), 
+    and Phalloidin (actin) channels from all cell cycle phases. Genes are clustered based 
+    on similarity of their morphological phenotype profiles.
