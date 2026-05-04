@@ -1,60 +1,187 @@
 # Screen Information
 experiment:
-  id: ""  # Experiment identifier
-  notebook_entries: ""  # Links or references to lab notebook entries
-  dates: 
-    start: ""
-    end: ""
+  id: "etna"
+  type: "Combinatorial optical pooled CRISPR screen (CROPseq-multi)"
+  reference: "Walton et al. (Nature Biotechnology)"
+  analysis_repo: "https://github.com/cheeseman-lab/etna-analysis"
 
-# Cellular Conditions
+# Cell Line
 cellular:
-  cell_line: ""  # e.g., HeLa, HEK293, etc.
-  imaging_timepoint: ""  # When imaging occurred after treatment
-  treatment:
-    summary: ""  # Brief description of treatment
-    details: ""  # Detailed protocol or conditions
-  plates: ""  # Number of plates
-  wells_per_plate: ""  # Number of wells per plate
+  cell_line: "HeLa (doxycycline-inducible Cas9)"
+  cell_line_reference: "Feldman et al. 2019 (Cell)"
+  species: "Human"
+  culture_media: "DMEM(1X) + GlutaMAX (Gibco 10569010), 10% (v/v) heat-inactivated FBS (MilliporeSigma F4135), 100 U/mL Penicillin and 100 µg/mL Streptomycin (Gibco 15140122)"
+  cas9_induction:
+    inducer: "Doxycycline"
+    concentration: "2 µg/mL"
+    duration: "78 hours"
+  puromycin_selection:
+    concentration: "2 µg/mL"
+    duration: "4 days"
+  seeding:
+    density: "300,000 cells/well"
+    time_before_fixation: "48 hours"
+  plates: 2
+  plate_type: "6-well glass-bottom (Cellvis P06-1.5H-N)"
+  wells_per_plate: "6 on plate 1, 3 on plate 2"
+  total_wells: 9
+
+# CRISPR Library
+library:
+  vector: "CROPseq-multi-v2 (CSMv2)"
+  total_constructs: 6000
+  guides_per_gene: 4
+  barcode_type: "iBAR (12 bp internal barcodes within sgRNA scaffold)"
+  barcode_length: 12  # 12-mer iBAR2 for mapping
+  recombination_barcode_length: 3  # 3-mer iBAR1 for recombination filtering
+  min_levenshtein_distance_between_barcodes: 3  # iBAR2 across 12 cycles, enables distance 1 error correction
+  middle_trnas: 3  # three orthogonal middle tRNAs (proline, glutamine, alanine)
+  perturbation_type: "CRISPR-KO (combinatorial)"
+  gene_selection:
+    individual_essential_genes: 360  # spanning diverse cellular processes
+    gene_combinations: 280  # unique gene pairs
+    synthetic_lethal_pairs: 76  # reported synthetic lethality in HeLa (Parrish et al.) or 13 gold standard pairs
+    no_viability_interaction_pairs: 83  # reported no viability interaction
+  construct_design:
+    dko_constructs_per_combination: 8  # drawing pairs among 4 unique guides per gene
+    sko_constructs_per_gene: 4  # each gene-targeting guide paired with intergenic cutting control
+  in_situ_detection: "T7-IVT (in vitro transcription)"
+
+# Fixation and In Situ Protocol
+protocol:
+  fixation: "4% (v/v) formaldehyde (EMS 15714) in 1X PBS (Ambion AM9625), 30 min RT"
+  permeabilization: "70% ethanol, 30 min"
+  decrosslinking: "0.1 M sodium bicarbonate and 0.3 M NaCl in water, 4 hours at 65°C"
+  wash_buffer: "PBS-T (1X PBS + 0.1% Tween-20)"
+  t7_ivt:
+    buffer: "1X T7 Reaction Buffer (NEB E2040L)"
+    ntps: "10 mM each (NEB E2040L)"
+    dtt: "5 mM (NEB E2040L)"
+    rnase_inhibitor: "0.4 U/µL RiboLock (TFS EO0384)"
+    polymerase: "0.2X T7 RNA Polymerase Mix (NEB E2040L)"
+    incubation: "Overnight (12-16 hours) at 37°C"
+  post_fixation: "3% formaldehyde (EMS 15714) + 0.1% glutaraldehyde (EMS 16120), 30 min RT"
+  reverse_transcription:
+    buffer: "1X RevertAid RT buffer (TFS EP0452)"
+    dntps: "250 µM (NEB N0447L)"
+    rt_primer: "1 µM each biotinylated RT primer"
+    albumin: "200 µg/mL rAlbumin (NEB B9200S)"
+    rnase_inhibitor: "0.8 U/µL RiboLock (TFS EO0384)"
+    enzyme: "4.8 U/µL RevertAid H minus RT (TFS EP0452)"
+    incubation: "16 hours at 37°C"
+  streptavidin_capture: "20 µg/mL Streptavidin (NEB N7021S) + 100 µg/mL rAlbumin in 1X PBS, 15 min RT"
+  padlock_ligation:
+    buffer: "1X Ampligase buffer (Lucigen A3210K)"
+    dntps: "50 nM (NEB N0447L)"
+    padlock_probe: "0.1 µM each"
+    albumin: "200 µg/mL rAlbumin (NEB B9200S)"
+    rnase_h: "0.4 U/µL (Enzymatics Y9220L)"
+    taqit: "0.02 U/µL (Enzymatics P7620L)"
+    ampligase: "0.5 U/µL (Lucigen A3210K)"
+    incubation: "5 min at 37°C, then 90 min at 45°C"
+  rolling_circle_amplification:
+    buffer: "1X Phi29 buffer (TFS EP0091)"
+    dntps: "250 µM (NEB N0447L)"
+    glycerol: "5% (MilliporeSigma G5516)"
+    albumin: "200 µg/mL rAlbumin (NEB B9200S)"
+    enzyme: "1 U/µL Phi29 DNA polymerase (TFS EP0091)"
+    incubation: "16 hours at 30°C"
 
 # Sequencing by Synthesis (SBS)
 sbs:
-  cycles: ""  # Number of cycles
-  cycle_order: ""  # Order of cycles
-  background_channel: ""  # Suggested background channel
-  library_details:
-    number_of_genes: ""
-    guides_per_gene: ""
-    other_information: ""
+  total_cycles: 15  # 3 (iBAR1 recombination barcode) + 12 (iBAR2 mapping barcode)
+  ibar1_cycles: 3  # recombination filtering barcode
+  ibar2_cycles: 12  # construct mapping barcode
+  primer_stripping: "2X SSC + 80% formamide, 60°C, 5 min (x2), between iBAR1 and iBAR2"
+  sequencing_kit: "Illumina MiSeq Nano kit v2 (MS-103-1003)"
+  incorporation: "5 min at 60°C (Nano kit reagent 1)"
+  cleavage: "6 min at 60°C (Nano kit reagent 4)"
+  wash_buffer: "PR2 (Illumina MS-103-1003)"
+  wash_protocol: "6 washes with PR2, then 5 heated washes x 5 min at 60°C"
+  imaging_buffer: "2X SSC + 200 ng/mL DAPI (MilliporeSigma D9542)"
+  objective: "10X"
+  channels:
+    - "DAPI"
+    - "G"
+    - "T"
+    - "A"
+    - "C"
 
-# Phenotype (PH) Steps
+# Phenotype (PH) Imaging
 phenotype:
-  background_channel_cell: ""  # For cell segmentation
-  background_channel_body: ""  # For body (e.g. parasite) segmentation
-  
-  # Rounds of staining/imaging (in order they were stained for each round)
-  # Add more rounds as needed
+  objective: "20X"
+  z_slices: 4
+  z_interval: "1.5 µm"
+  z_projection: "Maximum intensity projection"
+  background_channel_cell: "DAPI"
+  background_channel_body: "WGA"
+  bleaching_between_rounds: "1 mg/mL LiBH4 (MilliporeSigma 222356), 15 min RT, ambient light"
+
+  immunofluorescence:
+    blocking_buffer: "1X PBS (Ambion AM9625), 0.5% Tween-20 (VWR 100216-360), 3% BSA (LGC 1900-0016)"
+    blocking: "30 min RT, shaking at 300 RPM"
+    primary_incubation: "1 hour RT, shaking at 300 RPM"
+    secondary_incubation: "45 min RT, shaking at 300 RPM"
+    washes: "5x PBS-T between each step"
+
   rounds:
     - round_number: 1
       stains:
-        - name: "DAPI"  # Name of stain/antibody
-          marker_of: "Nuclei"  # What it marks
-          channel: "DAPI"  # Channel used (e.g., DAPI, CY3)
-        - name: "ConA"
-          marker_of: "Cytoplasm"
-          channel: "AF750"
-    
+        - name: "DAPI"
+          marker_of: "Nuclei (DNA)"
+          channel: "DAPI"
+        - name: "Ki-67"
+          marker_of: "Cell proliferation"
+          channel: "AF-488 plus"
+        - name: "COX IV"
+          marker_of: "Mitochondria"
+          channel: "AF-555"
+        - name: "Cleaved Caspase-3"
+          marker_of: "Apoptosis"
+          channel: "AF-647 plus"
+          z_slices: 1  # only one z-stack acquired for this channel
+        - name: "WGA"
+          marker_of: "Cell membrane / Glycoproteins"
+          channel: "CF-770"
+
     - round_number: 2
       stains:
-        - name: ""  # Name of stain/antibody
-          marker_of: ""  # What it marks
-          channel: ""  # Channel used (e.g., DAPI, CY3)
-        - name: ""
-          marker_of: ""
-          channel: ""
+        - name: "DAPI"
+          marker_of: "Nuclei (DNA)"
+          channel: "DAPI"
+          z_slices: 1  # only one z-stack acquired for DAPI in round 2
+        - name: "α-Tubulin"
+          marker_of: "Microtubules / Cytoskeleton"
+          channel: "AF-488 plus"
+        - name: "Vimentin"
+          marker_of: "Intermediate filaments"
+          channel: "AF-555"
+        - name: "γH2AX"
+          marker_of: "DNA damage foci"
+          channel: "AF-647 plus"
+        - name: "Phalloidin"
+          marker_of: "Filamentous actin (F-actin) / Cell body"
+          channel: "CF-770"
 
-# Data Generated
+  final_channels: 9  # after removing duplicate DAPI, yields 9 channels per tile
+
+# Microscope Hardware
+microscope:
+  system: "Nikon Ti2 inverted epifluorescence"
+  camera: "Not specified in manuscript"
+  control_software: "Not specified in manuscript"
+  light_engine: "Not specified in manuscript"
+
+# Data
 data:
-  storage_format: ""  # e.g., .nd2, .tiff
-  location: "/lab/.."  # Base path for data storage
-  
-  notes: ""  # Any additional notes about the data or file naming conventions
+  storage_format: "nd2"
+  sbs_tiles_per_well: 368
+  phenotype_tiles_per_well: 1364
+
+# Data Provenance
+provenance:
+  processing_pipeline: "brieflow"
+  pipeline_version: "1.2.0"
+  segmentation_model: "Cellpose cyto3 (nuclei diameter 46 px, cell diameter 70 px)"
+  analysis_repo: "https://github.com/cheeseman-lab/etna-analysis"
+  image_archive: "https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD3248"
